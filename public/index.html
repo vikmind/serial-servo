@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>ServoSlider</title>
+	<style>
+		body{
+			padding: 20px;
+		}
+		input{
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<h1>ServoSlider</h1>
+	<input id='megaslider' type="range" min="0" max="180" value="0">
+<script type="text/javascript">
+	const slider = document.getElementById('megaslider');
+	slider.addEventListener('change', function(e){
+		fetch('/servo', {method: 'POST', headers: {value: slider.value}});
+	});
+</script>
+</body>
+</html>
