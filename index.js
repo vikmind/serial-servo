@@ -22,6 +22,7 @@ app.use(express.static('public'));
 
 app.post('/servo', function (req, res) {
 	if (req.headers.value){
+		console.log('sent ' + req.headers.value);
 		port.write(req.headers.value + 'T');
 		res.send('ok');
 	} else {

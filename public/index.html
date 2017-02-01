@@ -16,12 +16,28 @@
 </head>
 <body>
 	<h1>ServoSlider</h1>
+	<h2>Current value is: <span id='megavalue'>0</span></h2>
 	<input id='megaslider' type="range" min="0" max="180" value="0">
+	
+	<hr>
+	<button data-action="send-value" data-value="0">1</button>
+	<button data-action="send-value" data-value="31">2</button>
+	<button data-action="send-value" data-value="69">3</button>
+	<button data-action="send-value" data-value="111">4</button>
+	<button data-action="send-value" data-value="152">5</button>
 <script type="text/javascript">
+	(function(){
 	const slider = document.getElementById('megaslider');
-	slider.addEventListener('change', function(e){
-		fetch('/servo', {method: 'POST', headers: {value: slider.value}});
+	const moveServo = function(value){
+		fetch('/servo', {method: 'POST', headers: {value: value}});
+		document.getElementById('megavalue').innerHTML = value;
+	};
+	slider.addEventListener('change', (e)=>{ moveServo(slider.value) });
+	const buttons = document.body.querySelectorAll('[data-action=send-value]');
+	buttons.forEach(function(btn){
+		btn.addEventListener('click', moveServo.bind(null, btn.getAttribute('data-value')));
 	});
+	})();
 </script>
 </body>
 </html>
